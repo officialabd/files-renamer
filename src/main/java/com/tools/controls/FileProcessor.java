@@ -48,16 +48,17 @@ public class FileProcessor {
     public static Message renameFile(String dirPath, File oldName, String range, String prefix, String num,
             String postfix, boolean keep, boolean askForInput) {
         String tempOldName = "";
+        StringBuilder sb = new StringBuilder(oldName.getName());
+        int in = sb.lastIndexOf(getExtension(oldName.getName()));
+        sb.replace(in - 1, in + getExtension(oldName.getName()).length(), "");
+
         if (range.equals(ONLY_FILES) && oldName.isFile() ||
                 range.equals(ONLY_FOLDERS) && oldName.isDirectory() ||
                 range.equals(ALL)) {
             if (keep) {
-                tempOldName = oldName.getName();
+                tempOldName = sb.toString();
             }
             if (askForInput) {
-                StringBuilder sb = new StringBuilder(oldName.getName());
-                int in = sb.lastIndexOf(getExtension(oldName.getName()));
-                sb.replace(in - 1, in + getExtension(oldName.getName()).length(), "");
                 String rs = Dialogs.askForInput(sb.toString(), "Enter a new name:");
                 if (!rs.equals(Dialogs.NO_INPUT))
                     tempOldName = rs;
