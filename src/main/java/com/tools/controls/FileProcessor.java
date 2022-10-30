@@ -55,7 +55,10 @@ public class FileProcessor {
                 tempOldName = oldName.getName();
             }
             if (askForInput) {
-                String rs = Dialogs.askForInput(oldName.getName(), "Enter a new name:");
+                StringBuilder sb = new StringBuilder(oldName.getName());
+                int in = sb.lastIndexOf(getExtension(oldName.getName()));
+                sb.replace(in - 1, in + getExtension(oldName.getName()).length(), "");
+                String rs = Dialogs.askForInput(sb.toString(), "Enter a new name:");
                 if (!rs.equals(Dialogs.NO_INPUT))
                     tempOldName = rs;
             }

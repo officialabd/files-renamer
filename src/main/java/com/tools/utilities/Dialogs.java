@@ -11,6 +11,8 @@ public class Dialogs {
         TextInputDialog in = new TextInputDialog(oldname);
         in.setHeaderText(headerText);
         in.setTitle(headerText);
+        in.setResizable(true);
+        in.setWidth(150);
         try {
             Optional<String> rs = in.showAndWait();
             if (rs.isEmpty())
